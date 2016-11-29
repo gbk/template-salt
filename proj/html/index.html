@@ -1,34 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title><%= name %></title>
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta http-equiv="cleartype" content="on">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="">
-<meta name="format-detection" content="telephone=no">
-<meta name="format-detection" content="email=no">
+    <head>
+        <meta charset="utf-8">
+        <title><%= name %></title>
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta http-equiv="cleartype" content="on">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="email=no">
+        <link rel="stylesheet" href="/app.css">    
 
-<!-- 外部样式资源加载 -->
-<link rel="stylesheet" href="//g.alicdn.com/platform/tingle-ui/1.1.12/salt-ui.min.css">
+        <script src="//g.alicdn.com/platform/c/??zepto/1.1.6/zepto.min.js,react/0.14.3/react-with-addons.min.js,react/0.14.3/react-dom.min.js,react-router/2.0.0/umd/ReactRouter.min.js,fastclick/1.0.6/lib/fastclick.min.js,reflux/0.3.0/dist/reflux.min.js,lie/3.0.2/dist/lie.polyfill.min.js,salt-router/0.0.2/salt-router.min.js"></script>
 
-<!-- 项目样式资源加载 -->
-<link rel="stylesheet" href="/app.css">
+        <script src="https://npmcdn.com/natty-storage@1.0.0/dist/natty-storage.min.js"></script>
+        <script src="https://npmcdn.com/natty-fetch@2.2.0/dist/natty-fetch.min.js"></script>
 
-<!-- 外部脚本资源加载 -->
-<script src="//g.alicdn.com/platform/c/??zepto/1.1.6/zepto.min.js,react/0.14.3/react-with-addons.min.js,react/0.14.3/react-dom.min.js,react-router/2.0.0/umd/ReactRouter.min.js,fastclick/1.0.6/lib/fastclick.min.js,reflux/0.3.0/dist/reflux.min.js,lie/3.0.2/dist/lie.polyfill.min.js,salt-fetch/2.0.3/dist/salt-fetch.min.js,salt-router/0.0.2/salt-router.min.js"></script>
-<script src="//g.alicdn.com/dingding/open-develop/0.6.4/dingtalk-ali.js"></script>
-</head>
-<body>
+        <link rel="stylesheet" href="//g.alicdn.com/platform/tingle-ui/1.1.12/salt-ui.min.css">
+        <script src="//g.alicdn.com/dingding/open-develop/0.8.4/dingtalk-ali.js"></script>
+        
+    </head>
+    <body>
+        <script src="//g.alicdn.com/platform/tingle-ui/1.0.27/salt-ui.min.js"></script>
 
-<div id="App"></div>
-<script src="//g.alicdn.com/platform/tingle-ui/1.1.12/salt-ui.min.js"></script>
+        <script>
+            // dd.config 钉钉js-api的配置脚本
+            // http://x.x.x.x:8001/getSign => 获得dd.config的参数
+            // http://192.168.10.11:3000/  => 微应用调试开发的内网(本机url,提供后台作为js-api鉴权参数)
+            fetch("http://x.x.x.x:8001/getSign",{method:"post",body: "http://192.168.10.11:3000/"})
+            .then(function (response) { return response.text(); })
+            .then(function (txt) {
+                let data = JSON.parse(txt);
+                dd.config({            
+                agentId: data.Content.agentId,
+                corpId: data.Content.corpId,
+                timeStamp:data.Content.timeStamp,
+                nonceStr: data.Content.nonceStr,
+                signature: data.Content.signature,
+                jsApiList: [
+                    'runtime.info',
+                    'runtime.permission.requestAuthCode',
+                    'device.notification.confirm',
+                    'device.notification.alert',
+                    'biz.navigation.close',
+                    'biz.navigation.setTitle',
+                    'biz.navigation.setIcon',
+                    'biz.navigation.setRight',
+                    'biz.user',
+                    'biz.util.ut',
+                    'biz.map.view',
+                    'biz.ding.post',
+                    'biz.map.search',
+                    'biz.map.locate',
+                    'biz.customContact.choose',
+                    // 添加更多钉钉客户端API
+                ]});           
+            });                             
+        </script>
 
-<!-- 项目脚本资源加载 -->
-<script src="/app.js"></script>
-</body>
+        <div id="App"></div>    
+        <script src="/app.js"></script>
+
+    </body>
 </html>

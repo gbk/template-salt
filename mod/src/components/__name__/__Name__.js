@@ -1,4 +1,5 @@
 require('./<%- Name %>.styl');
+import  {    } from 'SaltUI';
 
 class <%- Name %> extends React.Component {
 

@@ -1,5 +1,5 @@
 // See https://github.com/Jias/natty-fetch for more details.
-const context = salt.fetch.context({
+const context = nattyFetch.context({
     mockUrlPrefix: '/mock/',
     urlPrefix: '/',
     mock: true,
@@ -25,6 +25,7 @@ const context = salt.fetch.context({
 
 context.create('SomeModuleAPI', {
     getSomeInfo: {
+        // mock: false  
         mockUrl: 'query/getSomeInfo.json',
         url: 'query/getSomeInfo.json'
     }

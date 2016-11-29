@@ -1,8 +1,12 @@
 require('./Page<%- Name %>.styl');
 <% if (store) { %>
-const reactMixin = require('react-mixin');
-const Actions = require('./actions');
-const Store = require('./store');
+import reactMixin from 'react-mixin';
+import Actions from './actions';
+import Store  from './store';
+
+import {  } from  'SaltUI';
+
+// import {} from '../../components/modName';
 <% } %>
 class <%- Name %> extends React.Component {
 
@@ -43,6 +47,6 @@ class <%- Name %> extends React.Component {
     }
 }
 <% if (store) { %>
-reactMixin.onClass(<%- Name %>, Reflux.connect(Store, '<%- Name %>'));
+reactMixin.onClass(<%- Name %>, Reflux.connect(Store));
 <% } %>
 module.exports = <%- Name %>;
